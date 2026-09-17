@@ -2,6 +2,7 @@ const userModel=require("../models/user.models")
 const jwt=require("jsonwebtoken")
 const bcrypt=require("bcryptjs")
 const blacklistModel=require("../models/blacklist.model")
+const redis=require("../config/cache")
 async function registerController(req,res){
     const {username,email,password}=req.body;
     const isUserAlreadyExists=await userModel.findOne({
@@ -81,9 +82,7 @@ async function getMeController(req,res){
 async function logoutController(req,res){
     const token=req.cookies.token;
     res.clearCookie("token");
-    await blacklistModel.create({
-        token
-    })
+    await redis.set(token,Date.now().toString())
     res.status(201).json({
         message:"Logout Successfully"
     })
