@@ -1,0 +1,629 @@
+.register-page {
+  min-height: 100vh;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  overflow: hidden;
+
+  padding: 24px;
+  box-sizing: border-box;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(30, 215, 96, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(30, 215, 96, 0.045),
+      transparent 32%
+    ),
+    #090909;
+
+  color: #fff;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+
+  // Subtle music-grid background
+  &::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background-image:
+      linear-gradient(
+        rgba(255, 255, 255, 0.018) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.018) 1px,
+        transparent 1px
+      );
+
+    background-size: 70px 70px;
+
+    mask-image:
+      radial-gradient(
+        ellipse at center,
+        black,
+        transparent 75%
+      );
+
+    pointer-events: none;
+  }
+
+
+  // Soft green music atmosphere
+  &::after {
+    content: "";
+
+    position: absolute;
+
+    width: 520px;
+    height: 520px;
+
+    border-radius: 50%;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background:
+      radial-gradient(
+        circle,
+        rgba(30, 215, 96, 0.07),
+        transparent 65%
+      );
+
+    filter: blur(35px);
+
+    pointer-events: none;
+
+    animation: registerGlow 7s ease-in-out infinite;
+  }
+
+
+  // ==========================================
+  // REGISTER CARD
+  // ==========================================
+
+  .form-conatiner {
+    width: min(100%, 420px);
+
+    position: relative;
+
+    padding: 42px 40px 40px;
+
+    box-sizing: border-box;
+
+    background: #121212;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 18px;
+
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.65);
+
+    z-index: 2;
+
+    animation:
+      registerCardEnter
+      0.7s
+      cubic-bezier(0.16, 1, 0.3, 1);
+
+
+    // Green accent on top
+    &::before {
+      content: "";
+
+      position: absolute;
+
+      width: 140px;
+      height: 4px;
+
+      top: 0;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      border-radius: 0 0 10px 10px;
+
+      background: #1ed760;
+
+      box-shadow:
+        0 0 20px rgba(30, 215, 96, 0.4);
+
+      opacity: 0.9;
+    }
+  }
+
+
+  // ==========================================
+  // TITLE
+  // ==========================================
+
+  .form-conatiner h1 {
+    margin: 0 0 35px;
+
+    text-align: center;
+
+    color: #ffffff;
+
+    font-size: 2.4rem;
+
+    font-weight: 750;
+
+    letter-spacing: -1.5px;
+
+    line-height: 1;
+
+    animation:
+      registerTitleEnter
+      0.7s
+      ease
+      both;
+
+
+    &::after {
+      content: "";
+
+      display: block;
+
+      width: 38px;
+      height: 3px;
+
+      margin: 14px auto 0;
+
+      border-radius: 10px;
+
+      background: #1ed760;
+
+      box-shadow:
+        0 0 12px rgba(30, 215, 96, 0.45);
+    }
+  }
+
+
+  // ==========================================
+  // FORM
+  // ==========================================
+
+  .form-conatiner form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+  }
+
+
+  // ==========================================
+  // FORM GROUP
+  // ==========================================
+
+  .form-group {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    animation:
+      registerInputEnter
+      0.6s
+      ease
+      both;
+
+
+    &:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    &:nth-child(2) {
+      animation-delay: 0.16s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 0.22s;
+    }
+  }
+
+
+  // ==========================================
+  // LABEL
+  // ==========================================
+
+  .form-group label {
+    font-size: 0.8rem;
+
+    font-weight: 600;
+
+    color: #b3b3b3;
+
+    letter-spacing: 0.2px;
+
+    text-transform: capitalize;
+
+    transition:
+      color 0.25s ease;
+  }
+
+
+  .form-group:focus-within label {
+    color: #ffffff;
+  }
+
+
+  // ==========================================
+  // INPUT
+  // ==========================================
+
+  .form-group input {
+    width: 100%;
+
+    height: 52px;
+
+    padding: 0 15px;
+
+    box-sizing: border-box;
+
+    border-radius: 7px;
+
+    border: 1px solid #535353;
+
+    outline: none;
+
+    background: #181818;
+
+    color: #ffffff;
+
+    font-size: 0.92rem;
+
+    font-family: inherit;
+
+    transition:
+      border-color 0.25s ease,
+      background 0.25s ease,
+      box-shadow 0.25s ease;
+
+
+    &::placeholder {
+      color: #777;
+    }
+
+
+    &:hover {
+      border-color: #727272;
+    }
+
+
+    &:focus {
+      border-color: #1ed760;
+
+      background: #1c1c1c;
+
+      box-shadow:
+        0 0 0 1px #1ed760;
+    }
+  }
+
+
+  // ==========================================
+  // CREATE ACCOUNT BUTTON
+  // ==========================================
+
+  .form-conatiner button {
+    width: 100%;
+
+    height: 52px;
+
+    margin-top: 8px;
+
+    border: none;
+
+    border-radius: 500px;
+
+    outline: none;
+
+    cursor: pointer;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #1ed760;
+
+    color: #000;
+
+    font-family: inherit;
+
+    font-size: 0.92rem;
+
+    font-weight: 750;
+
+    letter-spacing: 0.1px;
+
+    transition:
+      transform 0.2s ease,
+      background 0.2s ease,
+      box-shadow 0.2s ease;
+
+    animation:
+      registerInputEnter
+      0.6s
+      ease
+      0.28s
+      both;
+
+
+    // Shine effect
+    &::before {
+      content: "";
+
+      position: absolute;
+
+      top: 0;
+      left: -100%;
+
+      width: 60%;
+      height: 100%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.28),
+          transparent
+        );
+
+      transform: skewX(-20deg);
+
+      transition:
+        left 0.55s ease;
+    }
+
+
+    &:hover {
+      background: #1fdf63;
+
+      transform: scale(1.025);
+
+      box-shadow:
+        0 8px 25px rgba(30, 215, 96, 0.2);
+    }
+
+
+    &:hover::before {
+      left: 140%;
+    }
+
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+
+  // ==========================================
+  // RESPONSIVE
+  // ==========================================
+
+  @media (max-width: 600px) {
+    padding: 20px;
+
+
+    .form-conatiner {
+      padding: 36px 26px 32px;
+
+      border-radius: 15px;
+    }
+
+
+    .form-conatiner h1 {
+      font-size: 2.2rem;
+
+      margin-bottom: 30px;
+    }
+  }
+
+
+  @media (max-width: 380px) {
+    padding: 15px;
+
+
+    .form-conatiner {
+      padding: 32px 21px 28px;
+    }
+
+
+    .form-conatiner h1 {
+      font-size: 2rem;
+    }
+  }
+}
+
+
+// ==========================================
+// ANIMATIONS
+// ==========================================
+
+@keyframes registerCardEnter {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(25px)
+      scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+@keyframes registerTitleEnter {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+
+@keyframes registerInputEnter {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+
+@keyframes registerGlow {
+  0% {
+    transform:
+      translate(-50%, -50%)
+      scale(0.9);
+
+    opacity: 0.5;
+  }
+
+  50% {
+    transform:
+      translate(-50%, -50%)
+      scale(1.08);
+
+    opacity: 0.8;
+  }
+
+  100% {
+    transform:
+      translate(-50%, -50%)
+      scale(0.9);
+
+    opacity: 0.5;
+  }
+}
+
+
+// ==========================================
+// TEXT SELECTION
+// ==========================================
+
+::selection {
+  background: #1ed760;
+  color: #000;
+}
+
+
+// ==========================================
+// ACCESSIBILITY
+// ==========================================
+
+@media (prefers-reduced-motion: reduce) {
+  .register-page *,
+  .register-page::after {
+    animation: none !important;
+
+    transition: none !important;
+  }
+}
+  // ==========================================
+  // LOGIN REDIRECT TEXT
+  // ==========================================
+
+  .form-conatiner p {
+    margin: 22px 0 0;
+
+    text-align: center;
+
+    color: #8f8f8f;
+
+    font-size: 0.82rem;
+
+    line-height: 1.5;
+
+    letter-spacing: 0.1px;
+  }
+
+
+  .form-conatiner p a {
+    color: #ffffff;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    margin-left: 3px;
+
+    position: relative;
+
+    transition:
+      color 0.25s ease;
+  }
+
+
+  // Small green underline animation
+  .form-conatiner p a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -3px;
+
+    width: 0;
+    height: 1.5px;
+
+    border-radius: 10px;
+
+    background: #1ed760;
+
+    transition:
+      width 0.25s ease;
+  }
+
+
+  .form-conatiner p a:hover {
+    color: #1ed760;
+  }
+
+
+  .form-conatiner p a:hover::after {
+    width: 100%;
+  }
