@@ -3,19 +3,25 @@ import { useEffect, useRef, useState } from "react";
 
 import { detect,init } from "../utils/utils";
 
- let stream;
-export default function FaceExpression() {
+export default function FaceExpression({ onMoodDetected = () => {}, loading = false }) {
   const videoRef = useRef(null);
   const landmarkerRef = useRef(null);
   const animationRef = useRef(null);
-  const [expression, setExpression] = useState("Detecting...");
+  const [expression, setExpression] = useState("Preparing camera...");
+  const [isReady, setIsReady] = useState(false);
   const streamRef=useRef(null)
  
   useEffect(() => {
  
    
 
-    init({landmarkerRef,videoRef,streamRef});
+    let isMounted = true;
+
+    init({landmarkerRef,videoRef,streamRef}).then(() => {
+      if (isMounted) setIsReady(true);
+    }).catch(() => {
+      if (isMounted) setExpression("Camera unavailable");
+    });
 
     return () => {
       if (animationRef.current) {
@@ -31,8 +37,13 @@ export default function FaceExpression() {
           .getTracks()
           .forEach((track) => track.stop());
       }
+          isMounted = false;
     };
   }, []);
+  async function handleClick(){
+    const expression =detect({landmarkerRef,videoRef,setExpression})
+    if (expression !== "neutral") onMoodDetected(expression)
+  }
 
   return (
     <div style={{ textAlign: "center" }}>
@@ -43,7 +54,9 @@ export default function FaceExpression() {
       />
 
       <h2>{expression}</h2>
-      <button onClick={()=>{detect({landmarkerRef,videoRef,setExpression})}}>Detect Expression</button>
+      <button onClick={handleClick} disabled={!isReady || loading || expression === "Camera unavailable"}>
+        {loading ? "Finding your song..." : isReady ? "Detect Expression" : "Preparing camera..."}
+      </button>
     </div>
   );
 }

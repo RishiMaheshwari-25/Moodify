@@ -2,8 +2,6 @@ import {
   FaceLandmarker,
   FilesetResolver
 } from "@mediapipe/tasks-vision";
-   let stream;
-
 export const init = async ({landmarkerRef,videoRef,streamRef}) => {
       const vision = await FilesetResolver.forVisionTasks(
         "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
@@ -38,6 +36,8 @@ export const init = async ({landmarkerRef,videoRef,streamRef}) => {
         videoRef.current,
         performance.now()
       );
+
+      let currentExpression = "neutral";
 
       if (results.faceBlendshapes?.length > 0) {
         const blendshapes = results.faceBlendshapes[0].categories;
@@ -76,18 +76,17 @@ export const init = async ({landmarkerRef,videoRef,streamRef}) => {
             dimpleScore > 0.08) &&
           sadnessSignal > 0.25;
 
-        let currentExpression = "Neutral";
-
         if (isHappy) {
-          currentExpression = "Happy 😄";
+          currentExpression = "happy";
         } else if (isSurprised) {
-          currentExpression = "Surprised 😲";
+          currentExpression = "surprised";
         } else if (isSad) {
-          currentExpression = "Sad 😢";
+          currentExpression = "sad";
         }
 
         setExpression(currentExpression);
       }
+      return currentExpression
 
     
     };
